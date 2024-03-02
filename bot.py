@@ -478,7 +478,7 @@ async def check_subscribers(update: Update, context: CallbackContext) -> None:
 
 
 def main():
-    application = Application.builder().token(TOKEN).build()
+    application = Application.builder().token("6380347739:AAFGZekITicy4bgpjsGYYeqAdSudIDteLJE").build()
     application.add_handler(CommandHandler("add_balance", add_balance))
     application.add_handler(CommandHandler('start', start))
     application.add_handler(CallbackQueryHandler(verify_subscription_callback, pattern='^verify_subscription$'))
