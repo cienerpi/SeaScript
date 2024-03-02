@@ -106,7 +106,7 @@ async def get_questions_for_test(test_id):
             FROM questions 
             WHERE test_id=? 
             ORDER BY RANDOM() 
-            LIMIT 5
+            LIMIT 50
         """, (test_id,)) as cursor:
             questions = await cursor.fetchall()
     return questions
@@ -139,7 +139,7 @@ def register_new_user(telegram_id, referrer_telegram_id=None):
         else:
             referrer_id = None
 
-        cursor.execute("INSERT INTO users (telegram_id, referred_by, balance) VALUES (?, ?, 200)", (telegram_id, referrer_id))
+        cursor.execute("INSERT INTO users (telegram_id, referred_by, balance) VALUES (?, ?, 20)", (telegram_id, referrer_id))
         conn.commit()
 
         # Если referrer_id найден, обновляем его баланс

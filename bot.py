@@ -12,10 +12,52 @@ logging.basicConfig(level=logging.INFO,
 logger = logging.getLogger(__name__)
 
 async def start(update: Update, context: CallbackContext):
-    referrer_id = context.args[0] if context.args else None
-    new_user_telegram_id = update.effective_user.id
-    # Вызываем функцию для регистрации нового пользователя и обработки реферального ID
-    register_new_user(new_user_telegram_id, referrer_id)
+    user_id = update.effective_user.id
+    chat_id = "@seascript"  # Замените на имя вашего канала
+
+    try:
+        member = await context.bot.get_chat_member(chat_id=chat_id, user_id=user_id)
+        if member.status in ['left', 'kicked']:
+            keyboard = [
+                [InlineKeyboardButton("Subscribe to Channel", url="https://t.me/seascript")],
+                [InlineKeyboardButton("Verify Subscription", callback_data='verify_subscription')]
+            ]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+            await update.message.reply_text("Please subscribe to our channel to continue using this bot.",
+                                            reply_markup=reply_markup)
+        else:
+            # Пользователь подписан на канал, показываем основное меню
+            await show_main_menu(update, context)  # Используем функцию show_main_menu для отображения основного меню
+    except Exception as e:
+        await update.message.reply_text("An error occurred while checking the subscription.")
+        print(e)
+
+async def verify_subscription_callback(update: Update, context: CallbackContext):
+    query = update.callback_query
+    user_id = query.from_user.id
+    chat_id = "@seascript"  # Замените на имя пользователя вашего канала
+
+    try:
+        member = await context.bot.get_chat_member(chat_id=chat_id, user_id=user_id)
+        if member.status not in ['left', 'kicked']:
+            await query.answer("Thank you for subscribing!", show_alert=True)
+            # Тут может быть вызов функции для показа основного меню или другой логики
+            await show_main_menu(query, context)  # Предполагается, что эта функция реализована
+        else:
+            await query.answer("Please subscribe to access the bot.", show_alert=True)
+    except Exception as e:
+        await query.answer("An error occurred while verifying the subscription.", show_alert=True)
+        print(e)
+
+
+async def show_main_menu(update_or_query, context: CallbackContext):
+    # Определяем, является ли объект update или callback_query
+    if hasattr(update_or_query, 'message'):
+        chat_id = update_or_query.message.chat.id
+    else:
+        chat_id = update_or_query.message.chat.id
+        await update_or_query.message.edit_text(
+            'Please, choose:')  # Редактируем предыдущее сообщение, если это callback_query
 
     keyboard = [
         [InlineKeyboardButton("Personal Cabinet", callback_data='personal_account')],
@@ -24,12 +66,12 @@ async def start(update: Update, context: CallbackContext):
         [InlineKeyboardButton("Take the test on incorrect questions", callback_data='retry_incorrect_questions')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
+    await context.bot.send_message(chat_id=chat_id, text='Please, choose:', reply_markup=reply_markup)
 
-    # Проверяем, вызвана ли функция из обновления сообщения или из обратного вызова
-    if update.message:
-        await update.message.reply_text('Please, choose:', reply_markup=reply_markup)
-    elif update.callback_query:
-        await update.callback_query.message.reply_text('Please, choose:', reply_markup=reply_markup)
+
+async def menu_command(update: Update, context: CallbackContext):
+    # Вызываем функцию show_main_menu для отображения основного меню
+    await show_main_menu(update, context)
 
 async def start_callback(update: Update, context: CallbackContext) -> None:
     referrer_id = context.args[0] if context.args else None
@@ -439,6 +481,8 @@ def main():
     application = Application.builder().token(TOKEN).build()
     application.add_handler(CommandHandler("add_balance", add_balance))
     application.add_handler(CommandHandler('start', start))
+    application.add_handler(CallbackQueryHandler(verify_subscription_callback, pattern='^verify_subscription$'))
+    application.add_handler(CommandHandler('menu', menu_command))
     application.add_handler(CallbackQueryHandler(deck_department_callback, pattern='^deck_department$'))
     application.add_handler(CallbackQueryHandler(deck_tests_callback, pattern='^deck_tests$'))
     application.add_handler(CallbackQueryHandler(engine_department_callback, pattern='^engine_department$'))
