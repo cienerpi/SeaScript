@@ -1,7 +1,7 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes, CallbackContext, MessageHandler, filters
 import asyncio
-from database_manager import add_test, add_question, get_incorrect_questions_for_combined_approach, get_questions_for_test, get_subscribers_count, update_correct_answers, fetch_questions_by_ids, get_tests_by_department, register_new_user, get_user_balance, update_user_balance, get_all_user_ids, add_test_result, get_user_test_statistics
+from database_manager import get_incorrect_questions_for_combined_approach, get_questions_for_test, get_subscribers_count, update_correct_answers, fetch_questions_by_ids, get_tests_by_department, register_new_user, get_user_balance, update_user_balance, get_all_user_ids, add_test_result, get_user_test_statistics
 from config import TOKEN
 import aiosqlite, logging
 
@@ -41,7 +41,7 @@ async def start_callback(update: Update, context: CallbackContext) -> None:
     keyboard = [
         [InlineKeyboardButton("Personal Cabinet", callback_data='personal_account')],
         [InlineKeyboardButton("Deck Department", callback_data='deck_department')],
-        [InlineKeyboardButton("Engine Department", callback_data='engine_department')],q
+        [InlineKeyboardButton("Engine Department", callback_data='engine_department')],
         [InlineKeyboardButton("Take the test on incorrect questions", callback_data='retry_incorrect_questions')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -100,8 +100,8 @@ async def start_test_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
     user_telegram_id = query.from_user.id
     balance = await get_user_balance(user_telegram_id)
 
-    if balance >= 100:  # Проверка баланса
-        await update_user_balance(user_telegram_id, -100)  # Списание баланса за начало теста
+    if balance >= 1:  # Проверка баланса
+        await update_user_balance(user_telegram_id, -1)  # Списание баланса за начало теста
 
         test_id = query.data.split('_')[-1]
         questions = await get_questions_for_test(test_id)  # Получаем список вопросов
