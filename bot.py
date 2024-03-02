@@ -2,7 +2,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes, CallbackContext, MessageHandler, filters
 import asyncio
 from database_manager import add_test, add_question, get_incorrect_questions_for_combined_approach, get_questions_for_test, get_subscribers_count, update_correct_answers, fetch_questions_by_ids, get_tests_by_department, register_new_user, get_user_balance, update_user_balance, get_all_user_ids, add_test_result, get_user_test_statistics
-
+from config import TOKEN
 import aiosqlite, logging
 
 ADMIN_USER_ID = 452181463  # Telegram ID администратора
@@ -436,7 +436,7 @@ async def check_subscribers(update: Update, context: CallbackContext) -> None:
 
 
 def main():
-    application = Application.builder().token("5977764606:AAF9qzxyOSXeU754Ps1JPzZ1ZSl7wLEZhwE").build()
+    application = Application.builder().token(TOKEN).build()
     application.add_handler(CommandHandler("add_balance", add_balance))
     application.add_handler(CommandHandler('start', start))
     application.add_handler(CallbackQueryHandler(deck_department_callback, pattern='^deck_department$'))
