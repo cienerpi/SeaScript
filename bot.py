@@ -1,8 +1,8 @@
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes, CallbackContext, MessageHandler, filters
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, LabeledPrice
+from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes, CallbackContext, MessageHandler, filters, PreCheckoutQueryHandler
 import asyncio
 from database_manager import get_incorrect_questions_for_combined_approach, get_questions_for_test, get_subscribers_count, update_correct_answers, fetch_questions_by_ids, get_tests_by_department, register_new_user, get_user_balance, update_user_balance, get_all_user_ids, add_test_result, get_user_test_statistics
-from config import TOKEN
+from config import TOKEN, STRIPE_TOKEN
 import aiosqlite, logging
 
 ADMIN_USER_ID = 452181463  # Telegram ID администратора
@@ -258,12 +258,14 @@ async def personal_account_callback(update: Update, context: ContextTypes.DEFAUL
 
     keyboard = [
         [InlineKeyboardButton("Get Referral Link", callback_data='get_referral_link')],
+        [InlineKeyboardButton("Buy Tugriks", callback_data='buy_tugriks')],
         [InlineKeyboardButton("Show Balance", callback_data='show_balance')],
         [InlineKeyboardButton("Show Test Statistics", callback_data='show_tests_stats')],
         [InlineKeyboardButton("Main Menu", callback_data='start')]  # Добавлена кнопка для возвращения в основное меню
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await query.edit_message_text(text=f"Personal Account:\nYour balance: {balance} Tugriks", reply_markup=reply_markup)
+
 
 
 
@@ -476,6 +478,80 @@ async def check_subscribers(update: Update, context: CallbackContext) -> None:
         await update.message.reply_text("You do not have permission to use this command.")
 
 
+async def buy_tugriks(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Проверяем, что это callback query и получаем сообщение оттуда
+    message = update.callback_query.message if update.callback_query else update.message
+
+    keyboard = [
+        [InlineKeyboardButton("3 Tugrik - $1.00", callback_data='buy_3_1')],
+        [InlineKeyboardButton("6 Tugriks - $2.00", callback_data='buy_6_2')],
+        [InlineKeyboardButton("12 Tugriks - $3.00", callback_data='buy_12_3')],
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    # Используем полученное сообщение для отправки ответа
+    await message.reply_text('Choose how many Tugriks you want to buy:', reply_markup=reply_markup)
+
+
+async def handle_buy_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+
+    chat_id = query.message.chat_id
+    data = query.data.split('_')
+    quantity = int(data[1])
+    amount_dollars = int(data[2])  # Это значение в долларах, нужно преобразовать в центы
+    amount_cents = amount_dollars * 100  # Преобразование в центы
+
+    prices = [LabeledPrice(f"{quantity} Tugriks", amount_cents)]  # Указываем значение в центах
+
+    title = f"Buying {quantity} Tugriks"  # Указываем заголовок инвойса
+    description = f"You are buying {quantity} Tugriks for ${amount_dollars:.2f}"
+
+    await context.bot.send_invoice(
+        chat_id=chat_id,
+        title=title,  # Убедитесь, что добавили этот параметр
+        description=description,
+        payload="Custom-Payload",
+        provider_token=STRIPE_TOKEN,
+        currency="USD",
+        prices=prices,
+        start_parameter="time-machine-example",
+    )
+
+
+
+async def successful_payment_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Платеж успешно совершен
+    chat_id = update.effective_chat.id
+    user_id = update.effective_user.id
+    amount_cents = update.message.successful_payment.total_amount  # Получаем сумму в центах
+
+    # Словарь для пересчета суммы в тугрики
+    # Ключи - суммы в центах, значения - количество тугриков
+    amounts_to_tugriks = {
+        100: 3,  # $1.00 -> 3 тугрика
+        200: 6,  # $2.00 -> 6 тугриков
+        300: 12,  # $3.00 -> 12 тугриков
+    }
+
+    # Определяем количество тугриков на основе суммы платежа
+    quantity = amounts_to_tugriks.get(amount_cents, 0)  # По умолчанию 0, если сумма не найдена
+
+    if quantity > 0:
+        await update_user_balance(user_id, quantity)  # Обновляем баланс пользователя
+        await context.bot.send_message(chat_id=chat_id, text=f"Thank you for your purchase! {quantity} Tugriks have been added to your balance.")
+    else:
+        # Если сумма платежа не соответствует ожидаемым значениям, сообщаем об ошибке
+        await context.bot.send_message(chat_id=chat_id, text="There was an error processing your payment. Please contact support.")
+
+
+async def precheckout_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.pre_checkout_query
+    # Здесь можно добавить дополнительные проверки
+    await context.bot.answer_pre_checkout_query(pre_checkout_query_id=query.id, ok=True)
+
+
 
 def main():
     application = Application.builder().token(TOKEN).build()
@@ -491,11 +567,16 @@ def main():
     application.add_handler(CallbackQueryHandler(handle_answer_callback, pattern='^answer_'))
     application.add_handler(CallbackQueryHandler(personal_account_callback, pattern='^personal_account$'))
     application.add_handler(CallbackQueryHandler(get_referral_link_callback, pattern='^get_referral_link$'))
+    application.add_handler(CallbackQueryHandler(buy_tugriks, pattern='^buy_tugriks$'))
     application.add_handler(CallbackQueryHandler(show_balance_callback, pattern='^show_balance$'))
     application.add_handler(CallbackQueryHandler(show_tests_stats_callback, pattern='^show_tests_stats$'))
     application.add_handler(CallbackQueryHandler(retry_incorrect_questions_callback, pattern='^retry_incorrect_questions$'))
     application.add_handler(CallbackQueryHandler(start_callback, pattern='^start$'))
     application.add_handler(CommandHandler("check_subscribers", check_subscribers))
+    application.add_handler(CommandHandler('buy_tugriks', buy_tugriks))
+    application.add_handler(CallbackQueryHandler(handle_buy_callback, pattern='^buy_'))
+    application.add_handler(MessageHandler(filters.SUCCESSFUL_PAYMENT, successful_payment_callback))
+    application.add_handler(PreCheckoutQueryHandler(precheckout_callback))
 
     application.add_handler(CommandHandler("broadcast", broadcast_command))
     application.add_handler(MessageHandler(filters.PHOTO, handle_photo_message))
