@@ -15,6 +15,9 @@ async def start(update: Update, context: CallbackContext):
     user_id = update.effective_user.id
     chat_id = "@seascript"  # Замените на имя вашего канала
 
+    # Здесь мы не имеем referrer_id, так как предполагаем, что команда /start вызывается без реферального ID
+    register_new_user(user_id)
+
     try:
         member = await context.bot.get_chat_member(chat_id=chat_id, user_id=user_id)
         if member.status in ['left', 'kicked']:
@@ -31,7 +34,6 @@ async def start(update: Update, context: CallbackContext):
     except Exception as e:
         await update.message.reply_text("An error occurred while checking the subscription.")
         print(e)
-
 async def verify_subscription_callback(update: Update, context: CallbackContext):
     query = update.callback_query
     user_id = query.from_user.id
