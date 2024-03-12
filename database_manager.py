@@ -144,7 +144,7 @@ def register_new_user(telegram_id, referrer_telegram_id=None):
 
         # Если referrer_id найден, обновляем его баланс
         if referrer_id:
-            cursor.execute("UPDATE users SET balance = balance + ? WHERE id = ?", (100, referrer_id))  # Например, начисляем 100 единиц валюты
+            cursor.execute("UPDATE users SET balance = balance + ? WHERE id = ?", (5, referrer_id))  # Например, начисляем 100 единиц валюты
             conn.commit()
 
     conn.close()
