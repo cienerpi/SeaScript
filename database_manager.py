@@ -120,6 +120,11 @@ async def get_tests_by_department(department):
             tests = await cursor.fetchall()
     return tests
 
+async def get_all_tests():
+    async with aiosqlite.connect('tests_db.sqlite') as db:
+        async with db.execute("SELECT id, name FROM tests") as cursor:
+            tests = await cursor.fetchall()
+    return tests
 
 def register_new_user(telegram_id, referrer_telegram_id=None):
     conn = connect_db()

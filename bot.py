@@ -1,17 +1,27 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, LabeledPrice
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes, CallbackContext, MessageHandler, filters, PreCheckoutQueryHandler
 import asyncio
-from database_manager import get_incorrect_questions_for_combined_approach, get_questions_for_test, get_subscribers_count, update_correct_answers, fetch_questions_by_ids, get_tests_by_department, register_new_user, get_user_balance, update_user_balance, get_all_user_ids, add_test_result, get_user_test_statistics
+from database_manager import get_incorrect_questions_for_combined_approach, get_questions_for_test, get_subscribers_count, update_correct_answers, fetch_questions_by_ids, get_tests_by_department, register_new_user, get_user_balance, update_user_balance, get_all_user_ids, add_test_result, get_user_test_statistics, get_all_tests
 from config import TOKEN, STRIPE_TOKEN
-import aiosqlite, logging
+import aiosqlite, logging, asyncio, random
 
+
+ALLOWED_CHAT_IDS = [-4129260987]  # Пример списка разрешенных ID чатов
 ADMIN_USER_ID = 452181463  # Telegram ID администратора
 ADMIN = [452181463]
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+
 async def start(update: Update, context: CallbackContext):
+    chat_type = update.effective_chat.type
+
+    # Проверяем, является ли чат приватным (личным чатом с ботом)
+    if chat_type != "private":
+        # Если команда вызвана не в приватном чате, выходим из функции
+        return
+
     user_id = update.effective_user.id
     chat_id = "@seascript"  # Замените на имя вашего канала
 
@@ -34,6 +44,8 @@ async def start(update: Update, context: CallbackContext):
     except Exception as e:
         await update.message.reply_text("An error occurred while checking the subscription.")
         print(e)
+
+
 async def verify_subscription_callback(update: Update, context: CallbackContext):
     query = update.callback_query
     user_id = query.from_user.id
@@ -553,6 +565,228 @@ async def precheckout_callback(update: Update, context: ContextTypes.DEFAULT_TYP
     # Здесь можно добавить дополнительные проверки
     await context.bot.answer_pre_checkout_query(pre_checkout_query_id=query.id, ok=True)
 
+
+
+async def get_random_question_for_test(test_id):
+    async with aiosqlite.connect('tests_db.sqlite') as db:
+        async with db.execute("""
+            SELECT id, question, image_url, correct_option 
+            FROM questions 
+            WHERE test_id=? 
+            ORDER BY RANDOM() 
+            LIMIT 1
+        """, (test_id,)) as cursor:
+            row = await cursor.fetchone()
+            if row:
+                return {
+                    "id": row[0],
+                    "question": row[1],
+                    "image_url": row[2],
+                    "correct_option": row[3]
+                }
+            return None
+
+async def begin_quiz(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    # Определяем chat_id в зависимости от того, как была вызвана функция
+    chat_id = update.effective_chat.id if not query else query.message.chat_id
+
+    # Проверяем, доступен ли тест в данном чате
+    if chat_id not in ALLOWED_CHAT_IDS:
+        await context.bot.send_message(chat_id=chat_id, text="Этот тест недоступен в вашем чате.")
+        return
+
+    # Далее идет логика функции после проверки доступности чата
+
+
+    if query:
+        await query.answer()
+
+    test_id = context.chat_data.get('chosen_test_id')
+    # Ваш код для начала квиза здесь...
+
+    if not test_id:
+        # Если тест не был выбран, предлагаем выбрать тест из доступных
+        tests = await get_all_tests()
+        if tests:
+            keyboard = [[InlineKeyboardButton(text=name, callback_data=f"choose_test_{test_id}")] for test_id, name in
+                        tests]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+            await context.bot.send_message(chat_id=update.effective_chat.id, text="Выберите тест:",
+                                           reply_markup=reply_markup)
+            return
+        else:
+            await context.bot.send_message(chat_id=update.effective_chat.id, text="Нет доступных тестов.")
+            return
+
+    # Активируем квиз
+    context.chat_data['quiz_active'] = True
+
+    # Если тест уже был выбран, продолжаем с этим тестом
+    question_info = await get_random_question_for_test(test_id)
+    if question_info:
+        # Сохраняем правильный ответ для проверки ответа пользователя позже
+        context.chat_data['answer'] = str(question_info['correct_option'])
+
+        # Отправляем вопрос пользователю
+        question_text = f"Вопрос: {question_info['question']}"
+        if question_info['image_url']:
+            # Если есть URL изображения, отправляем вопрос вместе с фото
+            await context.bot.send_photo(chat_id=update.effective_chat.id, photo=question_info['image_url'],
+                                         caption=question_text)
+        else:
+            # Если изображения нет, отправляем только текст вопроса
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=question_text)
+    else:
+        # Сообщаем об ошибке, если не удалось получить вопрос
+        await context.bot.send_message(chat_id=update.effective_chat.id,
+                                       text="Извините, произошла ошибка при получении вопроса.")
+
+
+async def test_selected(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat_id = update.effective_chat.id
+    if chat_id not in ALLOWED_CHAT_IDS:
+        await context.bot.send_message(chat_id=chat_id, text="Этот тест недоступен в вашем чате.")
+        return
+    query = update.callback_query
+    await query.answer()
+    test_id = query.data.split('_')[-1]
+    context.chat_data['chosen_test_id'] = test_id
+    await begin_quiz(update, context)  # Здесь исправлено на вызов функции begin_quiz
+
+
+async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if 'quiz_active' in context.chat_data and 'answer' in context.chat_data:
+        user_answer = update.message.text.strip()
+        correct_answer = str(context.chat_data['answer'])
+        chat_id = update.effective_chat.id
+        user_id = update.effective_user.id
+        username = update.effective_user.username or update.effective_user.first_name
+
+        if user_answer == correct_answer:
+            success_message = f"Правильно, {username}! 🎉 Вы успешно ответили на вопрос. Правильный ответ: {correct_answer}."
+            await context.bot.send_message(chat_id=chat_id, text=success_message)
+            await register_win(user_id, chat_id, username)
+
+            # Очищаем данные о текущем квизе и предлагаем следующие действия
+            context.chat_data.clear()
+            keyboard = [
+                [InlineKeyboardButton("Начать новый тест", callback_data='begin_quiz')],
+                [InlineKeyboardButton("Посмотреть глобальный рейтинг", callback_data='global_leaderboard')],
+                [InlineKeyboardButton("Посмотреть рейтинг чата", callback_data='chat_leaderboard')]
+            ]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+            await context.bot.send_message(chat_id=chat_id, text="Что вы хотите сделать дальше?", reply_markup=reply_markup)
+    else:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Квиз не активен. Начните квиз с помощью команды /begin_quiz.")
+
+
+
+
+
+async def offer_another_question(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [InlineKeyboardButton("Да, давайте ещё!", callback_data='play_again')],
+        [InlineKeyboardButton("Нет, спасибо", callback_data='stop')],
+        [InlineKeyboardButton("Глобальный рейтинг", callback_data='global_leaderboard')],
+        [InlineKeyboardButton("Рейтинг чата", callback_data='chat_leaderboard')]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await context.bot.send_message(chat_id=update.effective_chat.id,
+                                   text="Хотите сыграть ещё раз или посмотреть рейтинг?",
+                                   reply_markup=reply_markup)
+
+
+async def handle_quiz_interaction(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    chat_id = update.effective_chat.id
+
+    if query.data == 'play_again':
+        await begin_quiz(update, context)
+    elif query.data == 'stop':
+        await query.edit_message_text(text="Спасибо за игру!")
+        context.chat_data.clear()
+    elif query.data == 'global_leaderboard':
+        leaderboard = await get_global_leaderboard()
+        leaderboard_text = await format_leaderboard(leaderboard)  # Используйте await здесь
+        await query.edit_message_text(text=f"Глобальный рейтинг:\n{leaderboard_text}")
+    elif query.data == 'chat_leaderboard':
+        leaderboard = await get_chat_leaderboard(chat_id)
+        leaderboard_text = await format_leaderboard(leaderboard)  # Используйте await здесь
+        await query.edit_message_text(text=f"Рейтинг чата:\n{leaderboard_text}")
+
+
+
+
+
+async def register_win(user_id, chat_id, username=None):
+    async with aiosqlite.connect("quiz.db") as db:
+        cursor = await db.execute("SELECT wins FROM participants WHERE user_id = ? AND chat_id = ?", (user_id, chat_id))
+        row = await cursor.fetchone()
+
+        if row:
+            new_wins = row[0] + 1
+            await db.execute("UPDATE participants SET wins = ?, username = ? WHERE user_id = ? AND chat_id = ?",
+                             (new_wins, username, user_id, chat_id))
+        else:
+            await db.execute("INSERT INTO participants (user_id, chat_id, username, wins) VALUES (?, ?, ?, 1)",
+                             (user_id, chat_id, username))
+
+        await db.commit()
+
+
+# Рейтинг для конкретного чата
+async def get_chat_leaderboard(chat_id, limit=10):
+    async with aiosqlite.connect("quiz.db") as db:
+        cursor = await db.execute("SELECT user_id, username, wins FROM participants WHERE chat_id = ? ORDER BY wins DESC LIMIT ?", (chat_id, limit))
+        leaderboard = await cursor.fetchall()
+        return leaderboard
+
+# Глобальный рейтинг
+async def get_global_leaderboard(limit=10):
+    async with aiosqlite.connect("quiz.db") as db:
+        cursor = await db.execute("SELECT user_id, username, wins FROM participants ORDER BY wins DESC LIMIT ?", (limit,))
+        leaderboard = await cursor.fetchall()
+        return leaderboard
+
+
+async def format_leaderboard(leaderboard):
+    if not leaderboard:
+        return "Пока нет результатов."
+    leaderboard_text = ""
+    for idx, (user_id, username, wins) in enumerate(leaderboard, start=1):
+        username_display = username or f"User {user_id}"
+        leaderboard_text += f"{idx}. {username_display} - {wins} побед(а)\n"
+    return leaderboard_text
+
+
+async def get_personal_leaderboard(user_id: int):
+    async with aiosqlite.connect("quiz.db") as db:
+        cursor = await db.execute("SELECT chat_id, username, wins FROM participants WHERE user_id = ? ORDER BY wins DESC", (user_id,))
+        personal_leaderboard = await cursor.fetchall()
+        return personal_leaderboard
+
+async def show_personal_leaderboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.effective_user.id
+    personal_leaderboard = await get_personal_leaderboard(user_id)
+    if personal_leaderboard:
+        leaderboard_text = "Ваш личный рейтинг:\n"
+        for chat_id, username, wins in personal_leaderboard:
+            chat_name = await get_chat_name(chat_id, context)
+            leaderboard_text += f"Чат: {chat_name}, Побед: {wins}\n"
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=leaderboard_text)
+    else:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="У вас пока нет результатов.")
+
+async def get_chat_name(chat_id: int, context: ContextTypes.DEFAULT_TYPE) -> str:
+    # Эта функция предполагает, что у бота есть доступ к информации о чате.
+    # В зависимости от прав доступа, это может не работать для некоторых типов чатов.
+    try:
+        chat = await context.bot.get_chat(chat_id)
+        return chat.title or chat.username or str(chat_id)
+    except Exception:
+        return str(chat_id)
 
 
 def main():
