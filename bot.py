@@ -819,6 +819,13 @@ def main():
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text_message))
     application.add_handler(CommandHandler("add_balance", add_balance))
 
+    application.add_handler(CommandHandler("begin_quiz", begin_quiz))
+    application.add_handler(CallbackQueryHandler(test_selected, pattern='^choose_test_'))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, check_answer))
+    application.add_handler(CallbackQueryHandler(handle_quiz_interaction,
+                                                 pattern='^(play_again|stop|global_leaderboard|chat_leaderboard)$'))
+    application.add_handler(CallbackQueryHandler(begin_quiz, pattern='^begin_quiz$'))
+    application.add_handler(CommandHandler('myrating', show_personal_leaderboard))
 
     application.run_polling()
 
