@@ -681,9 +681,6 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Квиз не активен. Начните квиз с помощью команды /begin_quiz.")
 
 
-
-
-
 async def offer_another_question(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [InlineKeyboardButton("Да, давайте ещё!", callback_data='play_again')],
@@ -816,7 +813,7 @@ def main():
 
     application.add_handler(CommandHandler("broadcast", broadcast_command))
     application.add_handler(MessageHandler(filters.PHOTO, handle_photo_message))
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text_message))
+
     application.add_handler(CommandHandler("add_balance", add_balance))
 
     application.add_handler(CommandHandler("begin_quiz", begin_quiz))
@@ -826,6 +823,8 @@ def main():
                                                  pattern='^(play_again|stop|global_leaderboard|chat_leaderboard)$'))
     application.add_handler(CallbackQueryHandler(begin_quiz, pattern='^begin_quiz$'))
     application.add_handler(CommandHandler('myrating', show_personal_leaderboard))
+
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text_message))
 
     application.run_polling()
 
