@@ -300,8 +300,16 @@ async def show_balance_callback(update: Update, context: ContextTypes.DEFAULT_TY
 
     # Повторно получаем баланс, если пользователь запросил обновление
     balance = await get_user_balance(query.from_user.id)
-    await query.edit_message_text(text=f"Ваш баланс Тугриков: {balance}")
 
+    # Создаем клавиатуру с кнопкой возврата к основному меню
+    keyboard = [[InlineKeyboardButton("Main Menu", callback_data='main_menu')]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    # Редактируем сообщение, добавляя обновленный баланс и кнопку возврата к основному меню
+    await query.edit_message_text(
+        text=f"Your balance: {balance} Tugriks",
+        reply_markup=reply_markup
+    )
 
 
 async def get_referral_link_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -309,23 +317,31 @@ async def get_referral_link_callback(update: Update, context: ContextTypes.DEFAU
     await query.answer()
 
     user_telegram_id = query.from_user.id
-    referral_link = generate_referral_link(
-        user_telegram_id)  # Убедитесь, что функция generate_referral_link реализована
+    referral_link = generate_referral_link(user_telegram_id)  # Убедитесь, что функция generate_referral_link реализована
 
-    await query.edit_message_text(text=f"Ваша реферальная ссылка: {referral_link}")
+    # Создаем клавиатуру с кнопкой возврата к основному меню
+    keyboard = [[InlineKeyboardButton("Main Menu", callback_data='main_menu')]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    # Редактируем сообщение, добавляя реферальную ссылку и кнопку возврата к основному меню
+    await query.edit_message_text(
+        text=f"Your referral link:\n\n {referral_link}",
+        reply_markup=reply_markup
+    )
 
 
 def generate_referral_link(user_id):
-    bot_username = "educationpt_bot"
+    bot_username = "SeaScriptBot"
     return f"https://t.me/{bot_username}?start={user_id}"
 
 
 def get_user_info(user_telegram_id):
-    # Получение данных пользователя из базы данных по telegram_id
-    # Генерация реферальной ссылки
+    # Fetching user data from the database by telegram_id
+    # Generating referral link
     referral_link = generate_referral_link(user_telegram_id)
-    # Возвращаем информацию о пользователе и реферальную ссылку в виде строки
-    return f"Ваша реферальная ссылка: {referral_link}\nВаш баланс: ..."
+    # Returning user information and referral link as a string
+    return f"Your referral link: {referral_link}\nYour balance: ..."
+
 
 
 async def broadcast_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -419,7 +435,22 @@ async def show_tests_stats_callback(update: Update, context: ContextTypes.DEFAUL
 
     stats_message = f"Overall statistics: Correct answers - {total_correct}, Incorrect answers - {total_incorrect}\n\nDetailed test statistics:\n{detailed_stats}"
 
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=stats_message)
+    # Create keyboard with a button to return to the main menu
+    keyboard = [[InlineKeyboardButton("Main Menu", callback_data='main_menu')]]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    # Edit the existing message or send a new one if it's not possible
+    if query.message:
+        await query.edit_message_text(
+            text=stats_message,
+            reply_markup=reply_markup
+        )
+    else:
+        await context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=stats_message,
+            reply_markup=reply_markup
+        )
 
 
 
@@ -496,18 +527,31 @@ async def check_subscribers(update: Update, context: CallbackContext) -> None:
 
 
 async def buy_tugriks(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Проверяем, что это callback query и получаем сообщение оттуда
-    message = update.callback_query.message if update.callback_query else update.message
+    query = update.callback_query
 
-    keyboard = [
-        [InlineKeyboardButton("3 Tugrik - $1.00", callback_data='buy_3_1')],
-        [InlineKeyboardButton("6 Tugriks - $2.00", callback_data='buy_6_2')],
-        [InlineKeyboardButton("12 Tugriks - $3.00", callback_data='buy_12_3')],
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
+    # Проверяем, что это callback query
+    if query:
+        message = query.message
+        chat_id = message.chat.id
+        message_id = message.message_id
 
-    # Используем полученное сообщение для отправки ответа
-    await message.reply_text('Choose how many Tugriks you want to buy:', reply_markup=reply_markup)
+        keyboard = [
+            [InlineKeyboardButton("3 Tugrik - $1.00", callback_data='buy_3_1')],
+            [InlineKeyboardButton("6 Tugriks - $2.00", callback_data='buy_6_2')],
+            [InlineKeyboardButton("12 Tugriks - $3.00", callback_data='buy_12_3')],
+            [InlineKeyboardButton("Main Menu", callback_data='main_menu')],
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
+        # Редактируем полученное сообщение, заменяя его содержимое
+        await context.bot.edit_message_text(
+            chat_id=chat_id,
+            message_id=message_id,
+            text='Choose how many Tugriks you want to buy:',
+            reply_markup=reply_markup
+        )
+
+
 
 
 async def handle_buy_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
