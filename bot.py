@@ -122,7 +122,9 @@ async def deck_tests_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
     query = update.callback_query
     await query.answer()
     tests = await get_tests_by_department("deck")
-    keyboard = [[InlineKeyboardButton(text=name, callback_data=f"start_test_{test_id}")] for test_id, name in tests]
+    test_buttons = [[InlineKeyboardButton(text=name, callback_data=f"start_test_{test_id}")] for test_id, name in tests]
+    main_menu_button = [InlineKeyboardButton("Main Menu", callback_data='main_menu')]
+    keyboard = test_buttons + [main_menu_button]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await query.edit_message_text(text="Выберите тест:", reply_markup=reply_markup)
 
@@ -142,8 +144,10 @@ async def engine_department_callback(update: Update, context: ContextTypes.DEFAU
 async def engine_tests_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.callback_query
     await query.answer()
-    tests = await get_tests_by_department("mechanics")  # Убедитесь, что у вас есть функция для получения тестов по отделу
-    keyboard = [[InlineKeyboardButton(text=name, callback_data=f"start_test_{test_id}")] for test_id, name in tests]
+    tests = await get_tests_by_department("mechanics")
+    test_buttons = [[InlineKeyboardButton(text=name, callback_data=f"start_test_{test_id}")] for test_id, name in tests]
+    main_menu_button = [InlineKeyboardButton("Main Menu", callback_data='main_menu')]
+    keyboard = test_buttons + [main_menu_button]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await query.edit_message_text(text="Выберите тест:", reply_markup=reply_markup)
 
