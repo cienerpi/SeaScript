@@ -64,15 +64,7 @@ async def verify_subscription_callback(update: Update, context: CallbackContext)
         print(e)
 
 
-async def show_main_menu(update_or_query, context: CallbackContext):
-    # Определяем, является ли объект update или callback_query
-    if hasattr(update_or_query, 'message'):
-        chat_id = update_or_query.message.chat.id
-    else:
-        chat_id = update_or_query.message.chat.id
-        await update_or_query.message.edit_text(
-            'Please, choose:')  # Редактируем предыдущее сообщение, если это callback_query
-
+async def show_main_menu(update_or_query, context: CallbackContext, edit=False):
     keyboard = [
         [InlineKeyboardButton("Personal Cabinet", callback_data='personal_account')],
         [InlineKeyboardButton("Deck Department", callback_data='deck_department')],
@@ -80,12 +72,19 @@ async def show_main_menu(update_or_query, context: CallbackContext):
         [InlineKeyboardButton("Take the test on incorrect questions", callback_data='retry_incorrect_questions')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await context.bot.send_message(chat_id=chat_id, text='Please, choose:', reply_markup=reply_markup)
+
+    # Если необходимо редактировать сообщение
+    if edit:
+        await update_or_query.callback_query.edit_message_text(text='Please, choose:', reply_markup=reply_markup)
+    else:
+        chat_id = update_or_query.effective_chat.id if isinstance(update_or_query, Update) else update_or_query.callback_query.message.chat.id
+        await context.bot.send_message(chat_id=chat_id, text='Please, choose:', reply_markup=reply_markup)
+
 
 
 async def menu_command(update: Update, context: CallbackContext):
-    # Вызываем функцию show_main_menu для отображения основного меню
-    await show_main_menu(update, context)
+    # Вызываем show_main_menu с флагом edit, указывающим на необходимость редактирования сообщения
+    await show_main_menu(update, context, edit=True)
 
 async def start_callback(update: Update, context: CallbackContext) -> None:
     referrer_id = context.args[0] if context.args else None
@@ -114,7 +113,7 @@ async def deck_department_callback(update: Update, context: ContextTypes.DEFAULT
     await query.answer()
     keyboard = [
         [InlineKeyboardButton("Tests", callback_data='deck_tests')],
-        [InlineKeyboardButton("Main Menu", callback_data='start')]  # Добавлена кнопка для возвращения в основное меню
+        [InlineKeyboardButton("Main Menu", callback_data='main_menu')]  # Добавлена кнопка для возвращения в основное меню
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await query.edit_message_text(text="Choose option:", reply_markup=reply_markup)
@@ -133,7 +132,7 @@ async def engine_department_callback(update: Update, context: ContextTypes.DEFAU
     await query.answer()
     keyboard = [
         [InlineKeyboardButton("Tests", callback_data='mechanics_tests')],
-        [InlineKeyboardButton("Main Menu", callback_data='start')]  # Добавлена кнопка для возвращения в основное меню
+        [InlineKeyboardButton("Main Menu", callback_data='main_menu')]  # Добавлена кнопка для возвращения в основное меню
 
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -275,7 +274,7 @@ async def personal_account_callback(update: Update, context: ContextTypes.DEFAUL
         [InlineKeyboardButton("Buy Tugriks", callback_data='buy_tugriks')],
         [InlineKeyboardButton("Show Balance", callback_data='show_balance')],
         [InlineKeyboardButton("Show Test Statistics", callback_data='show_tests_stats')],
-        [InlineKeyboardButton("Main Menu", callback_data='start')]  # Добавлена кнопка для возвращения в основное меню
+        [InlineKeyboardButton("Main Menu", callback_data='main_menu')]  # Добавлена кнопка для возвращения в основное меню
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await query.edit_message_text(text=f"Personal Account:\nYour balance: {balance} Tugriks", reply_markup=reply_markup)
@@ -791,7 +790,7 @@ def main():
     application.add_handler(CommandHandler("add_balance", add_balance))
     application.add_handler(CommandHandler('start', start))
     application.add_handler(CallbackQueryHandler(verify_subscription_callback, pattern='^verify_subscription$'))
-    application.add_handler(CommandHandler('menu', menu_command))
+    application.add_handler(CallbackQueryHandler(menu_command, pattern='^main_menu$'))
     application.add_handler(CallbackQueryHandler(deck_department_callback, pattern='^deck_department$'))
     application.add_handler(CallbackQueryHandler(deck_tests_callback, pattern='^deck_tests$'))
     application.add_handler(CallbackQueryHandler(engine_department_callback, pattern='^engine_department$'))
