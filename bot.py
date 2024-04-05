@@ -1,6 +1,5 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, LabeledPrice
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes, CallbackContext, MessageHandler, filters, PreCheckoutQueryHandler
-import asyncio
 from database_manager import get_incorrect_questions_for_combined_approach, get_questions_for_test, get_subscribers_count, update_correct_answers, fetch_questions_by_ids, get_tests_by_department, register_new_user, get_user_balance, update_user_balance, get_all_user_ids, add_test_result, get_user_test_statistics, get_all_tests
 from config import TOKEN, STRIPE_TOKEN
 import aiosqlite, logging, asyncio, random
@@ -16,18 +15,11 @@ logger = logging.getLogger(__name__)
 
 async def start(update: Update, context: CallbackContext):
     chat_type = update.effective_chat.type
-
-    # Проверяем, является ли чат приватным (личным чатом с ботом)
     if chat_type != "private":
-        # Если команда вызвана не в приватном чате, выходим из функции
         return
-
     user_id = update.effective_user.id
-    chat_id = "@seascript"  # Замените на имя вашего канала
-
-    # Здесь мы не имеем referrer_id, так как предполагаем, что команда /start вызывается без реферального ID
+    chat_id = "@seascript"
     register_new_user(user_id)
-
     try:
         member = await context.bot.get_chat_member(chat_id=chat_id, user_id=user_id)
         if member.status in ['left', 'kicked']:
@@ -39,8 +31,7 @@ async def start(update: Update, context: CallbackContext):
             await update.message.reply_text("Please subscribe to our channel to continue using this bot.",
                                             reply_markup=reply_markup)
         else:
-            # Пользователь подписан на канал, показываем основное меню
-            await show_main_menu(update, context)  # Используем функцию show_main_menu для отображения основного меню
+            await show_main_menu(update, context)
     except Exception as e:
         await update.message.reply_text("An error occurred while checking the subscription.")
         print(e)
@@ -49,14 +40,12 @@ async def start(update: Update, context: CallbackContext):
 async def verify_subscription_callback(update: Update, context: CallbackContext):
     query = update.callback_query
     user_id = query.from_user.id
-    chat_id = "@seascript"  # Замените на имя пользователя вашего канала
-
+    chat_id = "@seascript"
     try:
         member = await context.bot.get_chat_member(chat_id=chat_id, user_id=user_id)
         if member.status not in ['left', 'kicked']:
             await query.answer("Thank you for subscribing!", show_alert=True)
-            # Тут может быть вызов функции для показа основного меню или другой логики
-            await show_main_menu(query, context)  # Предполагается, что эта функция реализована
+            await show_main_menu(query, context)
         else:
             await query.answer("Please subscribe to access the bot.", show_alert=True)
     except Exception as e:
@@ -73,7 +62,6 @@ async def show_main_menu(update_or_query, context: CallbackContext, edit=False):
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    # Если необходимо редактировать сообщение
     if edit:
         await update_or_query.callback_query.edit_message_text(text='Please, choose:', reply_markup=reply_markup)
     else:
@@ -83,14 +71,12 @@ async def show_main_menu(update_or_query, context: CallbackContext, edit=False):
 
 
 async def menu_command(update: Update, context: CallbackContext):
-    # Вызываем show_main_menu с флагом edit, указывающим на необходимость редактирования сообщения
     await show_main_menu(update, context, edit=True)
 
 async def start_callback(update: Update, context: CallbackContext) -> None:
     referrer_id = context.args[0] if context.args else None
     new_user_telegram_id = update.effective_user.id
 
-    # Вызываем функцию для регистрации нового пользователя и обработки реферального ID
     register_new_user(new_user_telegram_id, referrer_id)
 
     keyboard = [
@@ -101,7 +87,6 @@ async def start_callback(update: Update, context: CallbackContext) -> None:
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    # Проверяем, вызвана ли функция из обновления сообщения или из обратного вызова
     if update.message:
         await update.message.reply_text('Please, choose:', reply_markup=reply_markup)
     elif update.callback_query:
@@ -134,7 +119,7 @@ async def engine_department_callback(update: Update, context: ContextTypes.DEFAU
     await query.answer()
     keyboard = [
         [InlineKeyboardButton("Tests", callback_data='mechanics_tests')],
-        [InlineKeyboardButton("Main Menu", callback_data='main_menu')]  # Добавлена кнопка для возвращения в основное меню
+        [InlineKeyboardButton("Main Menu", callback_data='main_menu')]
 
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
