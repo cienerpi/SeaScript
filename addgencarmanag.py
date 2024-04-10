@@ -5,7 +5,7 @@ from database_manager import add_test, add_question
 
 async def add_specific_test_questions():
     # Определяем название и отдел только для интересующего нас теста
-    name = "General Cargo (Management)"
+    name = "CES 6 General Cargo (Management)"
     department = "deck"
 
     try:
