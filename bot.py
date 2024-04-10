@@ -700,7 +700,7 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await context.bot.send_message(chat_id=chat_id, text=success_message)
             await register_win(user_id, chat_id, username)
 
-            # Очищаем данные о текущем квизе и предлагаем следующие действия
+            # Clear quiz data and offer next actions
             context.chat_data.clear()
             keyboard = [
                 [InlineKeyboardButton("Начать новый тест", callback_data='begin_quiz')],
@@ -710,7 +710,10 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
             reply_markup = InlineKeyboardMarkup(keyboard)
             await context.bot.send_message(chat_id=chat_id, text="Что вы хотите сделать дальше?", reply_markup=reply_markup)
     else:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="Квиз не активен. Начните квиз с помощью команды /begin_quiz.")
+        # This line is commented out so the bot remains silent if the quiz is not active
+        # await context.bot.send_message(chat_id=update.effective_chat.id, text="Квиз не активен. Начните квиз с помощью команды /begin_quiz.")
+        pass
+
 
 
 async def offer_another_question(update: Update, context: ContextTypes.DEFAULT_TYPE):

@@ -212,7 +212,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "A High Breaking Capacity fuse found in a Main High Voltage Switchboard will typically have fault level rating of? \n\n1) 40 kA \n\n2) 40A \n\n3) 4000A \n\n4) 400A",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/191", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -284,7 +284,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "The picture shows the component parts of a fluorescent light (items 10 to 14) above a circuit diagram (items 1 to 9). Between which terminals of the circuit should the ballast (or choke) be connected? \n\n1) 1 and 9 \n\n2) 3 and 4 \n\n3) 1 and 2 \n\n4) 5 and 6",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/190", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -364,8 +364,8 @@ async def add_specific_test_questions():
                            ], 1)
 
         await add_question(test_id,
-                           "In a PID controller it is possible to change the setting of the Proportional band (P), the Reset time (I) and the Rate time (D). Please indicate which curve shows the typical response to a step change in input, if the setting of the reset time is too small. \n\n1) Figure 1. \n\n2) Figure 2. \n\n3) Figure 3. \n\n4) Figure 4.",
-                           "https://t.me/picturesforbo/105", [
+                           "In a PID controller it is possible to change the setting of the Proportional band (P), the Reset time (I) and the Rate time (D). Please indicate which curve shows the typical response to a step change in input, if the setting of the reset time is too small. \n\n1) Figure 3. \n\n2) Figure 2. \n\n3) Figure 1. \n\n4) Figure 4.",
+                           "https://t.me/picturesforbo/193", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -581,7 +581,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "A 5V dc source has an internal impedance of 0.2 ohms. When a load of 2.3 ohms is applied what voltage will be measured at the source terminals? \n\n1) 4.8 V\n\n2) 5.0 V \n\n3) 5.2 V \n\n4) 4.6 V ",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/189", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -608,7 +608,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "This circuit consists of a voltage source V, a change-over switch S, a resistor R and a capacitor C. The voltage/time figures 1 to 4 show changes in the voltage V(C) when the switch S is suddenly shifted from position 1 to 2 at time t = 0. Only one of the diagrams is correct. Which? \n\n1) Figure 1 \n\n2) Figure 4 \n\n3) Figure 3 \n\n4) Figure 2",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/188", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -635,7 +635,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Which of the following is the minimum acceptable value of insulation resistance for High Voltage equipment? \n\n1) 100 M Ohms \n\n2) 100 k Ohms \n\n3) 1 M Ohms \n\n4) 1 G Ohms",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/187", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -698,7 +698,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "This is a typical emitter follower. What is the main reason for use of an emitter follower? \n\n1) The input impedance is made much larger than the output impedance \n\n2) The V out is always equivalent to the V in \n\n3) The collector can be connected to as high voltage as 10 V DC \n\n4) The input impedance is made much smaller than the output impedance",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/186", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -716,7 +716,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "These circuits are all active filters. Which of the circuits is a low-pass filter? \n\n1) Figure D  \n\n2) Figure C \n\n3) Figure B \n\n4) Figure A",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/185", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -725,7 +725,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "In the circuit diagram shown the starter connects between which terminals? \n\n1) 7 and 8 \n\n2) 1 and 2 \n\n3) 3 and 4 \n\n4) 5 and 6",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/184", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -779,7 +779,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "This circuit consists of a voltage source V, a change-over switch S, a resistor R and a capacitor C. The voltage/time figures 1 to 4 show changes in the voltage V(C) when the switch S is suddenly shifted from position 1 to 2 at time t = 0. Only one of the diagrams is correct. Which? \n\n1) Figure 4 \n\n2) Figure 1 \n\n3) Figure 3 \n\n4) Figure 2",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/188", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -824,12 +824,12 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Why is input aliasing important in digital process control? \n\n1) It reduces noise dampening in digital process control \n\n2) It increases accuracy and precision of process measurement \n\n3) It reduces lag and deadtime in digital process control \n\n4) If frequency of signal sampling is not fast enough, digital representation of original signal will not be accurate",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/183", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
                                "Answer 4"
-                           ], 3)
+                           ], 4)
 
         await add_question(test_id,
                            "What is the maximum current that a 15 Volt, 3 Watt Zenerdiode can handle without damage? \n\n1) 0.5 A \n\n2) 20 A \n\n3) 0.45 A \n\n4) 0.2 A",
@@ -860,12 +860,12 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Why is input aliasing important in digital process control? \n\n1) It reduces noise dampening in digital process control  \n\n2) It increases accuracy and precision of process measurement \n\n3) It reduces lag and deadtime in digital process control \n\n4) If frequency of signal sampling is not fast enough, digital representation of original signal will not be accurate",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/183", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
                                "Answer 4"
-                           ], 3)
+                           ], 4)
 
         await add_question(test_id,
                            "What is the maximum current that a 15 Volt, 3 Watt Zenerdiode can handle without damage? \n\n1) 0.5 A \n\n2) 20 A \n\n3) 0.45 A \n\n4) 0.2 A",
@@ -1049,7 +1049,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "The image shows an indicator diagram taken from a diesel engine cylinder. Which of the following options is the action most likely to identify the fault? \n\n1) Check if the fuel pump injection is too early, or fuel pump lead is too great, for that cylinder. \n\n2) Check that the fuel temperature and viscosity are correct. \n\n3) Check if the fuel injection valve is partly blocked. \n\n4) Check the exhaust valve.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/182", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -1103,7 +1103,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Which of the 4 alternatives shows a NPN bipolar transistor? \n\n1) Figure 4. \n\n2)Figure 3.  \n\n3) Figure 2. \n\n4) Figure 1.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/181", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -1365,7 +1365,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "When there is a need to interrupt current flow in a high voltage system it may be very difficult to quench the electrical arc which is generated at the circuit breaker contacts. Which of the following arcing media is commonly found in high voltage marine switchgear?\n\n1) Air\n\n2) Vacuum\n\n3) Oil\n\n4) Water",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/180", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -1393,7 +1393,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "When there is a need to interrupt current flow in a high voltage system it may be very difficult to quench the electrical arc which is generated at the circuit breaker contacts. Which of the following arcing media is commonly found in high voltage marine switchgear?\n\n1) Vacuum\n\n2) Air\n\n3) Oil\n\n4) Water",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/180", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -1448,7 +1448,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "The diagram shows a thyristor (SCR) with a Resistor and Capacitor (R and C). Which of the following applications is the RC network performing?\n\n1) Allow bypass route for ac signals.\n\n2) Provide voltage smoothing for SCR power supply.\n\n3) Divert fast voltage spikes which may lead to uncontrolled switch on.\n\n4) Assist SCR switch on.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/179", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -1532,7 +1532,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Give the meaning of the following symbol \n\n1) Rocket parachute flare \n\n2) Survival craft portable radio \n\n3) Survival craft distress pyrotechnic signals \n\n4) EPIRB",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/82", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -1559,7 +1559,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "With reference to piping and instrumentation diagram (P&ID), what does below symbol symbolize? \n\n1) Capacitor \n\n2) Orifice \n\n3) Flow element \n\n4) Battery",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/178", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -1642,7 +1642,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "This circuit shown is a logic gate with two 'high' input signals, A and B, and one output signal Q. Which type of logic function does the gate provide? \n\n1) NOR gate \n\n2) OR gate  \n\n3) NAND gate \n\n4) AND gate",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/177", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -1869,7 +1869,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "This amplifier circuit is a common configuration used to amplify the difference in voltage between two input signals. In this case it is input 1 and 2. What is this amplifier called?\n\n1) Differential amplifier\n\n2) Push-pull amplifier\n\n3) Common emitter amplifier\n\n4) Darlington connection amplifier",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/176", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -1878,7 +1878,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "In the type of fluorescent lamp system shown in the illustration, which of the following indicates the purpose of the starter?\n\n1) To charge the ballast to a high inductive current, and then divert this current through the lamp.\n\n2) To pass current through the lamp heaters, and then interrupt the inductive striking current.\n\n3) To create a high starting current.\n\n4) To switch on current through the lamp, and to disconnect the ballast once the lamp has started.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/175", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2017,7 +2017,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "What are the main steps to convert an analogue signal to digital signal? \n\n1) Amplification, multiplexing, demodulation, A to D conversion \n\n2) Amplification, filtering, demultiplexing, A to D conversion \n\n3) Amplification, filtering, modulation, demodulation, A to D conversion \n\n4) Amplification, inversing, modulation, demodulation, A to D conversion",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/174", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2091,7 +2091,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "In fresh water tank we are using a pressure transmitter with a range of 0-0.5 bar/4-20mA for level measurement. The transmitter is installed 30 centimetres from the bottom of the tank, and the tank is 5 meters high. What will the output from the transmitter be when the tank is empty? \n\n1) 2,8 mA \n\n2) 2 mA \n\n3) 4 mA \n\n4) 5,2 mA.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/127", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2165,7 +2165,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "In a PID controller it is possible to change the setting of the Proportional band (P), the Reset time (I) and the Rate time (D). Please indicate which curve shows the typical response to a step input, if the variables are well adjusted. \n\n1) Figure 3. \n\n2) Figure 4. \n\n3) Figure 2. \n\n4) Figure 1.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/172", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2183,7 +2183,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "This graphical symbol is a logic gate. Which type of logic function does the gate provide? \n\n1) AND \n\n2) NOR \n\n3) OR \n\n4) NAND",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/171", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2202,7 +2202,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "There are many applications in circuit theory where it is important to obtain the maximum possible power that a given source can deliver. What value of resistance R(L) will maximize the power transmission from the source to R(L)? \n\n1) R(L) = 0.5 R(S) \n\n2) R(L) = 2 R(S) \n\n3) R(L) = R(S) \n\n4) R(L) = R(S) / sqrt(3)",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/170", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2452,7 +2452,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "The circuit shows a full-wave bridge rectifier. Which electronic component should be connected between 'a' and 'b' in order to obtain reduced ripple voltage to the load RL. \n\n1) Zener diode \n\n2) Resistance \n\n3) Inductive reactor \n\n4) Capacitor",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/169", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2461,7 +2461,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Give the meaning of the following symbol \n\n1) Survival craft portable radio \n\n2) Rocket parachute flares \n\n3) EPIRB \n\n4) Survival craft distress pyrotechnic signals",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/86", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2507,7 +2507,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Which of the following functions does the diode shown here perform? \n\n1) Allow Op Amp to top up +15V rail. \n\n2) Return inductive current to supply at switch off. \n\n3) Provide an overload route for transistor current. \n\n4) Reference the transistor to +15V.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/168", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2600,7 +2600,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "High Voltage systems rely on the installed protective equipment being able to interrupt any fault in the system. Throughout the system, the fault level has been calculated, and under no circumstances must the system be modified to exceed this fault level. What is meant by fault level? \n\n1) The current level flowing into a symmetrical short circuit fault between all three phases. \n\n2) The amount of apparent power that could flow into any fault at any point in the electrical network. \n\n3) The amount of apparent power, that would be drawn from the generating plant, when a short circuit occurs at the bus bars. \n\n4) The current level flowing into a dead short to earth at any point on the ship, directly from the High Voltage system.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/167", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2609,7 +2609,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Temperature sensors may be marked T 802. What does this mean? \n\n1) 20 ohm at 802°C\n\n2) 100 ohm at 20°C \n\n3) 20 ohm at 100°C \n\n4) 802 ohm at 20°C ",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/166", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2729,7 +2729,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "The wheatstone resistance bridge is often used for measuring resistances in, for example, Pt 100 temperature sensors or strain gauges. This figure shows such a bridge. Under what conditions will the bridge be balanced? i.e., the current through the meter i(m) = 0. \n\n1) R1 * R3 = R2 * R4\n\n2) R1 / R4 = R2 / R3 \n\n3) R1 + R3 = R2 + R4 \n\n4) R1 / R2 = R3 / R4 ",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/163", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2757,7 +2757,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "The circuit diagrams illustrate four different methods of wiring between a Pt 100 temperature sensor and its signal processing electronics. Which of the wiring methods gives the best measuring accuracy? \n\n1) Figure 4 \n\n2) Figure 2 \n\n3) Figure 3 \n\n4) Figure 1",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/165", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2775,7 +2775,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Following shows circuitry of a peak detector. What is the output voltage curve, Vo if Vi is a sinusoidal input curve? \n\n1) Vo will spike when Vi is at the maximum / minimum point of the sinusoidal curve; zero everywhere else \n\n2) Vo will peak at a level less than Vi maximum voltage and remain constant throughout \n\n3) Vo will be the same sinusoidal curve but at a lesser amplitude. \n\n4) Vo will peak when Vi is at the maximum, remain constant and fall to zero when Vi becomes negative",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/164", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2794,7 +2794,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Give the meaning of the following symbol \n\n1) Survival craft distress pyrotechnic signals \n\n2) Survival craft portable radio \n\n3) Rocket parachute flare \n\n4) EPIRB",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/94", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2896,7 +2896,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Which one of the following is not a requirement of an emergency generator used onboard ship? \n\n1) Driven by prime mover with an independent supply of fuel \n\n2) Connected automatically to the emergency switchboard in not more than 45 second \n\n3) Connected automatically when first main generator is overloaded \n\n4) Started automatically upon failure of main source of electrical power supply",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/162", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2905,7 +2905,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Identify symbol shown below. \n\n1) Motor \n\n2) Solenoid \n\n3) Spring \n\n4) Diaphragm",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/161", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2933,7 +2933,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Ordinary thyristors (SCR) must often be protected against reverse overvoltage transients. This is because they can be damaged by over-voltage, even if it is of extremely short duration. These SCRs have been given such over-voltage protection, but only one of them is correct. Which one is it? \n\n1) Figure 3 \n\n2) Figure 4 \n\n3) Figure 1 \n\n4) Figure 2",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/160", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -2997,7 +2997,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Give the meaning of the following symbol \n\n1) Survival craft distress pyrotechnic signals \n\n2) Rocket parachute flares \n\n3) Line throwing appliance \n\n4) Parachute landing area",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/74", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -3025,7 +3025,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Which of the following is true of the reed switch? \n\n1) Low on-resistance. \n\n2) Low reliability \n\n3) High off-resistance \n\n4) Low offset voltage",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/159", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -3127,7 +3127,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "With reference to piping and instrumentation diagram (P&ID), what does below symbol represent? \n\n1) Motor \n\n2) Filament lamp \n\n3) Anti-condensation heater \n\n4) Heat exchanger",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/158", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -3266,7 +3266,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "A Multimeter is not suitable to measure \n\n1) Resistance \n\n2) Power \n\n3) Voltage \n\n4) Current",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/157", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -3312,7 +3312,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "In a PID controller the setting of the Proportional band (P), the Reset time (I) and the Rate time (D) may be adjusted. Please indicate which curve shows the typical response to a change in input, if the setting of the proportional band is too wide. \n\n1) Figure 3. \n\n2) Figure 2. \n\n3) Figure 4. \n\n4) Figure 1.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/156", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -3441,7 +3441,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Give the meaning of the following symbol \n\n1) Rocket parachute flares \n\n2) Parachute landing area \n\n3) Survival craft distress pyrotechnic signals \n\n4) Line throwing appliance",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/155", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -3469,7 +3469,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "This figure shows a transformer, with two windings, N(1) = 2000 and N(2) = 1000 turns, on a common magnetic circuit. Assume that there is no energy loss in the transformer itself. Calculate the current I(2) when the current I(1) = 2 A. \n\n1) I(2) = 8 A \n\n2) I(2) = 1 A \n\n3) I(2) = 4 A \n\n4) I(2) = 2 A",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/154", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -3497,7 +3497,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Which of the following is not true of the photo resistor? \n\n1) Very low offset voltage \n\n2) High switching rate capability \n\n3) High on-resistance \n\n4) Moderate off-resistance",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/153", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -3581,7 +3581,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Temperatures are often measured by using platinum resistance thermometers. The characteristics shown are all calibration curves for such devices. Which of them is a calibration curve for a PT100 sensor? \n\n1) Figure 3 \n\n2) Figure 1 \n\n3) Figure 2 \n\n4) Figure 4",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/152", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -3609,7 +3609,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "\"Protective discrimination\" means the progressive grading of sizes or tripping times of: \n\n1) Line fuses and overcurrent relays \n\n2) 440 V and 220 V transformers. \n\n3) Magnetic and thermal current transformers. \n\n4) Generators and motors.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/151", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -3655,7 +3655,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "How do you change the below earth neutral system into an isolated neutral system? \n\n1) Replace link with fuse \n\n2) Remove earth on generator neutral \n\n3) Remove all earthing lead \n\n4) Cannot be done",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/150", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -3674,7 +3674,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Temperature sensors of all types are normally mounted in a well, or pocket, when used in pipelines. Why is this done? \n\n1) Allow removal of the sensor also when liquid is flowing in the pipe. \n\n2) Decrease the temperature gradient between the liquid and the sensor. \n\n3) Avoid electric current flowing from the sensor to the liquid. \n\n4) Suppress electro-magnetic interference between liquid in the pipe and the sensor.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/149", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -3748,7 +3748,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Which device does this graphical symbol illustrate? \n\n1) Differential pressure transmitter \n\n2) Rectifier \n\n3) Pressure to current converter \n\n4) Inverter",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/148", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -3822,7 +3822,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "What is the effect of noise on any electronic system? \n\n1) Limits the bandwidth of the measurement system \n\n2) Limits the reliability of the measurement system \n\n3) Limits the accuracy of the measurement system \n\n4) Limits the precision of the measurement system",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/147", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -3979,7 +3979,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "The figure shows a silicon controlled rectifier with a RC circuit connected in parallel. What is the purpose of the RC circuit? \n\n1) Provide a controlled time delay for the SCR trigger pulse. \n\n2) Measuring the current through the SCR \n\n3) Obtain current resonance \n\n4) Protect the SCR against damage caused by fast high voltage spikes",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/173", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4025,7 +4025,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Below shows a typical shore supply connection box. What does device SSA stand for? \n\n1) Sequence supply available lamp \n\n2) Shore supply available lamp \n\n3) Ship supply available lamp \n\n4) Switchboard supply available lamp",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/145", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4071,7 +4071,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Temperature sensors may be marked PT100. What does this mean? \n\n1) 100 ohm at 20°C \n\n2) 100 ohm at 0°C \n\n3) 20 ohm at 100°C \n\n4) 0 ohm at 100°C",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/144", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4155,7 +4155,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "What type of protection is Ex e equipment? \n\n1) Increased safety \n\n2) Flameproof \n\n3) Non-sparking \n\n4) Pressurized",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/143", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4192,7 +4192,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Which electronic component or system is this graphical symbol illustrating: \n\n1) Bandpass filter \n\n2) 3-phase sine-wave generator \n\n3) Electric heater \n\n4) Transformer with ferromagnetic core",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/142", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4229,7 +4229,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Use Kirchhoff's current law and Ohm's law to calculate the value of the current I for this circuit. \n\n1) 22A \n\n2) 72A \n\n3) 48A \n\n4) 2A",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/141", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4330,7 +4330,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Diodes are widely used in rectification, or the conversion of alternating current to direct current. The sinusoidal input voltage V(in) is applied to the circuit shown. Which of the output voltages is correct? \n\n1) Figure 2 \n\n2) Figure 4 \n\n3) Figure 3 \n\n4) Figure 1",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/140", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4349,7 +4349,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "In control systems it is often necessary to convert from one type of unit to another. Which is a common signal level for an I/P converter? \n\n1) 0-20 mA/0-20 PSI \n\n2) 4-20mA/3-15 PSI \n\n3) 0-10V/3-15 PSI \n\n4) 0-1 mA/1-2 BAR",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/139", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4358,7 +4358,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "What is the function of automatic bus transfer (ABT) switch? \n\n1) It automatically connects the emergency generator to the emergency switchboard while disconnecting the main switchboard from the emergency switchboard \n\n2) It automatically connects the emergency generator to the main switchboard while disconnecting the main switchboard from the emergency switchboard \n\n3) It automatically connects the main generator to the main switchboard while disconnecting the main switchboard from the emergency switchboard \n\n4) It automatically connects the emergency generator to the main switchboard while disconnecting the main switchboard from the emergency switchboard",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/138", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4451,7 +4451,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Below shows a voltage-to-current converter. V+ = 10V, V- = -10V, Re = 5kΩ. When Vi = 0V, Ve = -0.6V. What is Ie? \n\n1) 2.25mA \n\n2) 0.127mA \n\n3) 4.25mA \n\n4) 1.88mA",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/137", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4469,7 +4469,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "What type of valve is below picture showing? \n\n1) Plug valve \n\n2) Butterfly valve \n\n3) Ball valve \n\n4) Diaphragm valve",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/136", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4543,7 +4543,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "The pressure inlet to a pressure gauge is varied from zero to full scale and back to zero again. The output (indicating pressure) versus true pressure is shown in the diagram. The non-coincidence (mis-match) of the loading and unloading curve is due to internal friction in the instrument. What do we call this phenomenon? \n\n1) Dead band \n\n2) Threshold \n\n3) Resolution \n\n4) Hysteresis",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/135", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4562,7 +4562,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "In the diagram below we want to verify the resistance of the PT100 sensor fitted with compensation. What is the correct calculation? \n\n1) R(Pt100) = R1 + R2 \n\n2) R(Pt100) = R1 - R2\n\n3) R(Pt100) = R1 x R2 \n\n4) R(Pt100) = R1 : R2",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/134", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4571,7 +4571,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "The circuit symbol is a driver for a solenoid valve S. What is the purpose of the diode IN 4002 connected in parallel to the solenoid S? \n\n1) Allowing stored energy in solenoid to dissipate as freewheel current and therefore prevent damage to transistor from inductive switching voltage. \n\n2) Making voltage drop of approximate 0.5V between the operational amplifier and the transistor 2N5194 to assist transistor biasing. \n\n3) Open circuit for current flow between the operational amplifier and the transistor 2N5194 \n\n4) Blocking for +15V to the emitter of the transistor 2N5194 to stop it from overheating.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/133", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4654,7 +4654,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Your vessel has been involved in a collision, and at first opportunity a lot of people from outsides parties are asking questions. What shall you tell them? \n\n1) To make sure that all parties are informed about the facts, show them the extracts of the log-book. \n\n2) Do not tell anybody anything, except representatives from the main newspapers, radio and TV. Remember, the people have the right to know. \n\n3) Do not reply to any questions from outside parties, except the Solicitor appointed by your company. \n\n4) You shall only tell them the truth and nothing but the truth.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/132", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4691,7 +4691,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "In relation to exhaust gas measurement with a thermocouple, use of an amplifier which gives a mA-signal out is preferred. Why is this done? \n\n1) The output signal from a thermocouple is at mV level, and cannot be transferred over any long distance without loss of signal, giving a poor accuracy and poor noise immunity. \n\n2) The signal out from the thermocouple is also mA, but have to be amplified in order to give a good signal to the alarm system. \n\n3) This depends on the length of the compensation-cable. \n\n4) To stabilize the signal and make it easier to measure at the receiver.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/131", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4710,7 +4710,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Which function is this operational amplifier circuit performing? \n\n1) Non-inverting amplifier \n\n2) Inverting amplifier \n\n3) Integrator \n\n4) Differentiator",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/130", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4719,7 +4719,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Which alternative is correct for measuring current through the load L? \n\n1) Figure 3. \n\n2) Figure 4. \n\n3) Figure 2. \n\n4) Figure 1.",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/129", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4747,7 +4747,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "This circuit consists of a current source I, a change-over switch S, a resistor R and a capacitor C. The current/time figures 1 to 4 show possible changes in the current I when the switch S is suddenly shifted from position 1 to 2 at time t=0. Which diagram is correct? \n\n1) Figure A \n\n2) Figure B \n\n3) Figure C \n\n4) Figure D",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/128", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4867,7 +4867,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "When the cable length exceeds approx. 10 meters we normally have to, in case of a Pt 100, in some way compensate for the cable resistance. Do we also have to do this if we choose to use a T802 temperature sensor? \n\n1) Yes \n\n2) Depends on temperature to be measured. \n\n3) Not applicable \n\n4) No",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/126", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4959,7 +4959,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "An important quantity which is useful in circuit analysis is known as conductance G (Siemens). Which of the formulas A to D expresses the conductance for this circuit? \n\n1) G = 1/R \n\n2) G = 2*R \n\n3) G = R * I \n\n4) G = I/R",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/125", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -4969,7 +4969,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "The diagram shows a calibration curve for a pressure gauge. What is an alternative name for the slope of the characteristic? \n\n1) Repeatability \n\n2) Sensitivity \n\n3) Hysteresis \n\n4) Off-set",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/124", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5006,7 +5006,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Which of the functions is this operational amplifier circuit performing? \n\n1) Non-inverting amplifier \n\n2) Integrator \n\n3) Inverting amplifier \n\n4) Differentiator",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/123", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5024,7 +5024,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Following shows the circuit diagram and amplitude transfer characteristics of a particular filter. What is the filter called? \n\n1) High pass filter \n\n2) Low pass filter \n\n3) Bandpass filter \n\n4) Notch filter",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/122", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5043,7 +5043,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "What type of D.C. motor is below diagram showing? \n\n1) Shunt wound \n\n2) Compound-wound \n\n3) Separately-excited \n\n4) Series wound",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/195", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5080,7 +5080,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "In terms of an automated control system, what is meant by the expression 'Slave Controller'? \n\n1) The secondary controller in a cascade control system \n\n2) Feed water controller \n\n3) The controller is always working hard \n\n4) The controller is following a pre-set control sequence",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/120", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5107,7 +5107,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Give the meaning of the following symbol \n\n1) Survival craft distress pyrotechnic signals \n\n2) Survival craft portable radio \n\n3) EPIRB \n\n4) Rocket parachute flare",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/74", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5172,7 +5172,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "What is the advantage of proportional–integral–derivative (PID) Control over on-off control? \n\n1) PID Control has fewer control elements compared to on-off control \n\n2) PID Control has the ability to operate the process with smaller error, thus reducing wear and tear on final control elements \n\n3) PID Control has faster response time compared to on-off control \n\n4) PID Control has faster response time compared to on-off control",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/119", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5181,7 +5181,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Which of the connections you are shown, are the dedicated shore connection (MARPOL-connection) for discharging of sewage? \n\n1) 1 \n\n2) 2 \n\n3) 4 \n\n4) 3",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/118", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5209,7 +5209,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "What type of piping line does below figure represent? \n\n1) Inert gas line \n\n2) Pneumatic air line \n\n3) Hydraulic line \n\n4) Electric heat tracing line",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/117", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5246,7 +5246,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Give the meaning of the following symbol \n\n1) Rocket parachute flares \n\n2) Radar transponder \n\n3) EPIRB \n\n4) Survival craft distress pyrotechnic signals",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/92", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5255,7 +5255,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "What type of D.C. motor is below diagram showing? \n\n1) Shunt wound \n\n2) Compound-wound \n\n3) Series wound \n\n4) Separately-excited",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/116", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5385,7 +5385,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Below figure shows an instrument loop. Which of the following shows the correct instrument flow? \n\n1) TT sends signal to both TR and PID. PID then sends processed signal to I/P. I/P generates a pneumatic signal to operate valve \n\n2) PID sends signal to I/P. I/P then generates a pneumatic signal to operate valve. Valve then sends signal to TT which then sends signal to both PID and TR \n\n3) I/P sends pneumatic signal to operate valve. Valve then sends signals to TT which then sends signal to both TR and PID. PID then operates I/P \n\n4) Valve sends signal to TT. TT then sends signals to both PID and TR. PID processes and then sends signal to I/P",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/115", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5403,7 +5403,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "Which type of temperature sensor is used in this temperature measuring system shown? \n\n1) Thermocouple sensor \n\n2) Thermistor sensor \n\n3) Platinum resistance sensor \n\n4) Quartz sensor",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/113", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5561,7 +5561,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "What function is this circuit performing? \n\n1) Differentiating \n\n2) Telemetering \n\n3) Integrating \n\n4) Modulating",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/111", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5579,7 +5579,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "The circuit consists of two inductors, L(1) = 6 H and L(2) = 12 H, in series. Calculate the equivalent total inductance. \n\n1) L(S) = 18H \n\n2) L(S) = 1.5 H \n\n3) L(S) = 0.5 H \n\n4) L(S) = 4H",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/107", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
@@ -5616,7 +5616,7 @@ async def add_specific_test_questions():
 
         await add_question(test_id,
                            "This is a parallel L-C circuit with a curve showing frequency- impedance characteristics. Which of the formulae A to D gives the resonant frequency fo? \n\n1) fo = 1 / (2*Pi* sqrt (L*C)) \n\n2) fo = Pi*sqrt (L/C) / C \n\n3) fo = 1 / sqrt (1 - LC) \n\n4) fo = 1 / (Pi*sqrt (1 - LC))",
-                           "https://t.me/picturesforbo/105", [
+                           "https://t.me/picturesforbo/106", [
                                "Answer 1",
                                "Answer 2",
                                "Answer 3",
