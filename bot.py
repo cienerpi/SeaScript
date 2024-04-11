@@ -24,8 +24,8 @@ async def start(update: Update, context: CallbackContext):
         member = await context.bot.get_chat_member(chat_id=chat_id, user_id=user_id)
         if member.status in ['left', 'kicked']:
             keyboard = [
-                [InlineKeyboardButton("Subscribe to Channel", url="https://t.me/seascript")],
-                [InlineKeyboardButton("Verify Subscription", callback_data='verify_subscription')]
+                [InlineKeyboardButton("Подписаться на наш канал", url="https://t.me/seascript")],
+                [InlineKeyboardButton("Проверить подписку", callback_data='verify_subscription')]
             ]
             reply_markup = InlineKeyboardMarkup(keyboard)
             await update.message.reply_text("Please subscribe to our channel to continue using this bot.",
