@@ -234,12 +234,16 @@ async def handle_answer_callback(update: Update, context: ContextTypes.DEFAULT_T
     if current_question_index + 1 < total_questions:
         context.user_data['current_question_index'] += 1
         next_question = questions[current_question_index + 1]
-        await send_question(context, update.effective_chat.id, next_question, context.user_data['current_question_index'], total_questions)
+        await send_question(context, update.effective_chat.id, next_question,
+                            context.user_data['current_question_index'], total_questions)
     else:
+        # This block now only triggers when the current question is the last one in the test
         correct_answers = len(context.user_data.get('correct_answers_ids', []))
         percentage = (correct_answers / total_questions) * 100
-        await add_test_result(user_id, context.user_data['current_test_id'], percentage, context.user_data['correct_answers_ids'], context.user_data['incorrect_answers_ids'])
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Test finished! You answered {correct_answers} out of {total_questions} questions correctly ({percentage:.0f}%).")
+        await add_test_result(user_id, context.user_data['current_test_id'], percentage,
+                              context.user_data['correct_answers_ids'], context.user_data['incorrect_answers_ids'])
+        await context.bot.send_message(chat_id=update.effective_chat.id,
+                                       text=f"Test finished! You answered {correct_answers} out of {total_questions} questions correctly ({percentage:.0f}%).")
         await start(update, context)
 
         # Clearing the current test data from user context
@@ -247,9 +251,6 @@ async def handle_answer_callback(update: Update, context: ContextTypes.DEFAULT_T
         del context.user_data['current_question_index']
         del context.user_data['correct_answers_ids']
         del context.user_data['incorrect_answers_ids']
-
-
-
 
 
 async def personal_account_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
