@@ -216,13 +216,21 @@ async def get_incorrect_questions_for_user(user_id):
 
 
 async def fetch_questions_by_ids(question_ids):
-    question_ids_str = ','.join(str(id) for id in question_ids)
+    # Проверка на наличие реальных данных перед выполнением запроса
+    if not question_ids:
+        return []
+
+    # Подготовка списка идентификаторов для SQL-запроса
+    placeholders = ', '.join(['?' for _ in question_ids])
+    query = f"SELECT id, question, image_url, option_1, option_2, option_3, option_4, correct_option FROM questions WHERE id IN ({placeholders})"
+
     async with aiosqlite.connect('tests_db.sqlite') as db:
-        query = f"SELECT id, question, image_url, option_1, option_2, option_3, option_4, correct_option FROM questions WHERE id IN ({question_ids_str})"
-        async with db.execute(query) as cursor:
-            questions = await cursor.fetchall()
-    print(questions)  # Для отладки
-    return questions
+        try:
+            async with db.execute(query, question_ids) as cursor:
+                questions = await cursor.fetchall()
+                return questions
+        except Exception as e:
+            return []
 
 
 async def update_correct_answers(user_id, correct_answers_ids):
