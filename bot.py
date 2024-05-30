@@ -785,21 +785,7 @@ async def precheckout_callback(update: Update, context: ContextTypes.DEFAULT_TYP
     await context.bot.answer_pre_checkout_query(pre_checkout_query_id=query.id, ok=True)
 
 
-async def set_private_commands(application):
-    commands = [
-        BotCommand("start", "Start the bot"),
-        # Добавьте сюда другие команды для приватных чатов
-    ]
-    await application.bot.set_my_commands(commands, scope=BotCommandScopeAllPrivateChats())
 
-
-async def set_group_commands(application):
-    commands = [
-        BotCommand("start_quiz", "Начать викторину"),
-        BotCommand("leaderboard", "Показать рейтинг")
-        # Добавьте сюда другие команды для групповых чатов
-    ]
-    await application.bot.set_my_commands(commands, scope=BotCommandScopeAllGroupChats())
 
 
 
@@ -843,8 +829,7 @@ def main():
     application.add_handler(MessageHandler(filters.PHOTO, handle_photo_message))
 
     application.add_handler(CommandHandler("add_balance", add_balance))
-    await set_private_commands(application)
-    await set_group_commands(application)
+
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text_message))
     register_handlers(application)
 
