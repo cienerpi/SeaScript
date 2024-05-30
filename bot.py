@@ -22,6 +22,10 @@ logger = logging.getLogger(__name__)
 
 
 async def start(update: Update, context: CallbackContext):
+    if update.message.chat.type != 'private':
+        await update.message.reply_text("This command can only be used in private chats.")
+        return
+
     user_id = update.effective_user.id
     referrer_id = context.args[0] if context.args else None
     if referrer_id:

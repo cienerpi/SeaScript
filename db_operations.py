@@ -53,7 +53,7 @@ async def get_questions_for_test(test_id, pool):
             FROM questions
             WHERE test_id = $1
             ORDER BY RANDOM()
-            LIMIT 5
+            LIMIT 50
             """,
             test_id
         )
