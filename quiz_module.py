@@ -6,7 +6,7 @@ import asyncpg
 import random
 import logging
 from db_operations import create_pool
-ALLOWED_CHAT_IDS = [-4129260987]  # Замените на ваши chat_id
+ALLOWED_CHAT_IDS = [-1002214875727]  # Замените на ваши chat_id
 
 
 async def get_random_question(pool):
