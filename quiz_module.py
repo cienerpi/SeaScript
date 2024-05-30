@@ -1,8 +1,6 @@
-import asyncpg
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, LabeledPrice
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes, CallbackContext, MessageHandler, filters, PreCheckoutQueryHandler
 import asyncio
-import asyncpg
 import random
 import logging
 from db_operations import create_pool
