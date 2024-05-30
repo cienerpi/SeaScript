@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 SSH_HOST = '128.199.4.131'
 SSH_PORT = 22
 SSH_USER = 'root'
-SSH_KEY_PATH = 'C:\\Users\\ciene\\.ssh\\id_rsa'
+SSH_KEY_PATH = '/root/.ssh/id_rsa'
 SSH_KEY_PASSWORD = '123456789'  # Замените на ваш пароль для SSH-ключа
 
 DB_HOST = 'localhost'
