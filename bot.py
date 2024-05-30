@@ -1,4 +1,4 @@
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, LabeledPrice
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, LabeledPrice, BotCommand, BotCommandScopeAllPrivateChats, BotCommandScopeAllGroupChats
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes, CallbackContext, MessageHandler, filters, PreCheckoutQueryHandler
 from db_operations import get_incorrect_questions_for_combined_approach, get_questions_for_test, \
      get_subscribers_count,  update_correct_answers, fetch_questions_by_ids, get_tests_by_department, register_new_user,\
@@ -785,6 +785,24 @@ async def precheckout_callback(update: Update, context: ContextTypes.DEFAULT_TYP
     await context.bot.answer_pre_checkout_query(pre_checkout_query_id=query.id, ok=True)
 
 
+async def set_private_commands(application):
+    commands = [
+        BotCommand("start", "Start the bot"),
+        # Добавьте сюда другие команды для приватных чатов
+    ]
+    await application.bot.set_my_commands(commands, scope=BotCommandScopeAllPrivateChats())
+
+
+async def set_group_commands(application):
+    commands = [
+        BotCommand("start_quiz", "Начать викторину"),
+        BotCommand("leaderboard", "Показать рейтинг")
+        # Добавьте сюда другие команды для групповых чатов
+    ]
+    await application.bot.set_my_commands(commands, scope=BotCommandScopeAllGroupChats())
+
+
+
 def main():
     # Create a connection pool
     pool = db_operations.create_pool()
@@ -825,8 +843,8 @@ def main():
     application.add_handler(MessageHandler(filters.PHOTO, handle_photo_message))
 
     application.add_handler(CommandHandler("add_balance", add_balance))
-
-
+    await set_private_commands(application)
+    await set_group_commands(application)
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text_message))
     register_handlers(application)
 
