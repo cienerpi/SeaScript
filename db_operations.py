@@ -8,43 +8,23 @@ import paramiko
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-SSH_HOST = '128.199.4.131'
-SSH_PORT = 22
-SSH_USER = 'root'
-SSH_KEY_PATH = '/root/.ssh/id_rsa'
-SSH_KEY_PASSWORD = '123456789'  # Замените на ваш пароль для SSH-ключа
-
-DB_HOST = 'localhost'
-DB_PORT = 5432
-DB_NAME = 'maindb'
-DB_USER = 'bot'
-DB_PASSWORD = '123456789'
-
+DB_HOST = 'localhost'       # Замените на ваш хост базы данных
+DB_PORT = 5432                 # Порт по умолчанию для PostgreSQL
+DB_NAME = 'maindb'             # Имя базы данных
+DB_USER = 'bot'                # Имя пользователя базы данных
+DB_PASSWORD = '123456789'  # Пароль базы данных
 
 async def create_pool():
     try:
-        mykey = paramiko.RSAKey.from_private_key_file(SSH_KEY_PATH, password=SSH_KEY_PASSWORD)
-
-        tunnel = SSHTunnelForwarder(
-            (SSH_HOST, SSH_PORT),
-            ssh_username=SSH_USER,
-            ssh_pkey=mykey,
-            remote_bind_address=(DB_HOST, DB_PORT)
-        )
-        tunnel.start()
-
-        local_bind_host = '127.0.0.1'  # Изменение с '0.0.0.0' на '127.0.0.1'
-        local_bind_port = tunnel.local_bind_port
-        print(f"SSH tunnel established: {local_bind_host}:{local_bind_port}")
-
-        connection_string = f'postgresql://{DB_USER}:{DB_PASSWORD}@{local_bind_host}:{local_bind_port}/{DB_NAME}'
+        connection_string = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
         print(f"Connection string: {connection_string}")
 
         pool = await asyncpg.create_pool(dsn=connection_string)
-        return tunnel, pool
+        return pool
     except Exception as e:
         print(f"Ошибка создания пула подключений: {e}")
-        return None, None
+        return None
+
 
 
 async def add_test(name, department, pool):

@@ -22,10 +22,6 @@ logger = logging.getLogger(__name__)
 
 
 async def start(update: Update, context: CallbackContext):
-    chat_type = update.effective_chat.type
-    if chat_type != "private":
-        return
-
     user_id = update.effective_user.id
     referrer_id = context.args[0] if context.args else None
     if referrer_id:
@@ -47,9 +43,8 @@ async def start(update: Update, context: CallbackContext):
 
     pool = context.bot_data.get('db_pool')
     if not pool:
-        tunnel, pool = await create_pool()
+        pool = await create_pool()
         context.bot_data['db_pool'] = pool
-        context.bot_data['db_tunnel'] = tunnel
 
     if pool:
         registered_user_id = await register_new_user(user_id, pool, referrer_user_id=referrer_id)
@@ -794,7 +789,6 @@ def main():
     application = Application.builder().token(TOKEN).build()
 
     application.bot_data['db_pool'] = None
-    application.bot_data['db_tunnel'] = None
     application = Application.builder().token(TOKEN).build()
     application.add_handler(CommandHandler("add_balance", add_balance))
     application.add_handler(CommandHandler('start', start))
