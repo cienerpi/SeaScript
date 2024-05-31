@@ -7,6 +7,10 @@ from db_operations import create_pool
 
 ALLOWED_CHAT_IDS = [-1002214875727, -4129260987, -1001587110027]  # Replace with your chat IDs
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 async def get_random_question(pool):
     async with pool.acquire() as connection:
         row = await connection.fetchrow("SELECT id, question FROM quiz_questions ORDER BY RANDOM() LIMIT 1")
@@ -51,9 +55,11 @@ async def start_quiz(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not pool:
         await update.message.reply_text("Database connection not available.")
         return
+
     question_info = await get_random_question(pool)
     if question_info:
         context.chat_data["question_id"] = question_info["id"]
+        logger.info(f"Set question_id in chat_data: {context.chat_data['question_id']}")
         await update.message.reply_text(f"Question: {question_info['question']}")
     else:
         await update.message.reply_text("No questions available.")
@@ -68,11 +74,13 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return  # Do not respond if there is no database connection
 
     question_id = context.chat_data.get("question_id")
+    logger.info(f"Retrieved question_id from chat_data: {question_id}")
     if not question_id:
         return  # Do not respond if there is no question set
 
     user_answer = update.message.text.strip()
     correct_answer = await get_correct_answer(pool, question_id)
+    logger.info(f"User answer: {user_answer}, Correct answer: {correct_answer}")
     if user_answer.lower() == correct_answer.lower():
         await update.message.reply_text(f"Correct! 🎉 Answer: {correct_answer}.")
         # Update user stats
@@ -80,6 +88,7 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update_user_stats(pool, user_id, chat_id)
         # Reset the question after a correct answer
         context.chat_data["question_id"] = None
+        logger.info(f"Reset question_id in chat_data")
 
 async def show_leaderboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
@@ -110,3 +119,5 @@ def register_quiz_handlers(application):
     application.add_handler(CommandHandler("start_quiz", start_quiz))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, check_answer))
     application.add_handler(CommandHandler("leaderboard", show_leaderboard))
+
+# Initialize your application and register handlers as needed
