@@ -78,22 +78,23 @@ async def language_callback(update: Update, context: CallbackContext):
 
     registered_user_id = await register_new_user(user_id, pool, referrer_user_id=referrer_id)
     if registered_user_id is None:
-        await query.edit_message_text("Registration error.")
+        await query.edit_message_text(localization[language]['registration_error'])
         return
 
     try:
         member = await context.bot.get_chat_member(chat_id=chat_id, user_id=user_id)
         if member.status in ['left', 'kicked']:
             keyboard = [
-                [InlineKeyboardButton("Subscribe", url="https://t.me/seascript")],
-                [InlineKeyboardButton("Check Subscription", callback_data='verify_subscription')]
+                [InlineKeyboardButton(localization[language]['subscribe_button'], url="https://t.me/seascript")],
+                [InlineKeyboardButton(localization[language]['check_subscription_button'], callback_data='verify_subscription')]
             ]
             reply_markup = InlineKeyboardMarkup(keyboard)
-            await query.edit_message_text("Please subscribe to the channel to continue.", reply_markup=reply_markup)
+            await query.edit_message_text(localization[language]['subscribe_request'], reply_markup=reply_markup)
         else:
             await show_main_menu(update, context)
     except Exception as e:
-        await query.edit_message_text("Failed to check subscription status.")
+        await query.edit_message_text(localization[language]['subscription_check_error'])
+        print(e)
 
 
 
