@@ -786,8 +786,6 @@ async def precheckout_callback(update: Update, context: ContextTypes.DEFAULT_TYP
 
 
 
-
-
 async def set_private_commands(application):
     private_commands = [
         BotCommand('start', 'Start the bot in private chat'),
@@ -803,23 +801,20 @@ async def set_group_commands(application):
     ]
     await application.bot.set_my_commands(group_commands, scope=BotCommandScopeAllGroupChats())
 
+
+
 def main():
     # Создание пула соединений
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
+    pool = db_operations.create_pool()
 
-    pool = create_pool(loop)  # Предположим, это ваша функция создания пула соединений
-    if pool is None:
-        logger.error("Failed to create a database connection pool. Exiting...")
-        return
-
+    # Создание приложения Telegram Bot
     application = Application.builder().token(TOKEN).build()
 
     application.bot_data['db_pool'] = pool  # Использование пула соединений, если требуется
 
     # Установить команды для разных типов чатов
-    loop.run_until_complete(set_private_commands(application))
-    loop.run_until_complete(set_group_commands(application))
+    asyncio.run(set_private_commands(application))
+    asyncio.run(set_group_commands(application))
 
     # Добавить обработчики команд
     application.add_handler(CommandHandler("add_balance", add_balance))
@@ -858,4 +853,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
