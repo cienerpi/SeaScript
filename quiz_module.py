@@ -5,7 +5,7 @@ import random
 import logging
 from db_operations import create_pool
 
-ALLOWED_CHAT_IDS = [-1002214875727, -4129260987, -1001587110027]  # Replace with your chat IDs
+ALLOWED_CHAT_IDS = [-1002214875727, -4129260987, -1001587110027, -1001829502006]  # Replace with your chat IDs
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
