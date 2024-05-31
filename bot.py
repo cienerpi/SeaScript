@@ -788,28 +788,51 @@ async def precheckout_callback(update: Update, context: ContextTypes.DEFAULT_TYP
 
 
 
+async def set_private_commands(application):
+    private_commands = [
+        BotCommand('start', 'Start the bot in private chat'),
+        # Добавьте сюда другие команды для приватных чатов
+    ]
+    await application.bot.set_my_commands(private_commands, scope=BotCommandScopeAllPrivateChats())
+
+async def set_group_commands(application):
+    group_commands = [
+        BotCommand('start_quiz', 'Start a quiz in group chat'),
+        BotCommand('leaderboard', 'Show the leaderboard in group chat'),
+        # Добавьте сюда другие команды для групповых чатов
+    ]
+    await application.bot.set_my_commands(group_commands, scope=BotCommandScopeAllGroupChats())
 
 def main():
-    # Create a connection pool
-    pool = db_operations.create_pool()
+    # Создание пула соединений
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
 
-    # Create the Telegram bot application
+    pool = create_pool(loop)  # Предположим, это ваша функция создания пула соединений
+    if pool is None:
+        logger.error("Failed to create a database connection pool. Exiting...")
+        return
+
     application = Application.builder().token(TOKEN).build()
 
-    application.bot_data['db_pool'] = None
-    application = Application.builder().token(TOKEN).build()
+    application.bot_data['db_pool'] = pool  # Использование пула соединений, если требуется
+
+    # Установить команды для разных типов чатов
+    loop.run_until_complete(set_private_commands(application))
+    loop.run_until_complete(set_group_commands(application))
+
+    # Добавить обработчики команд
     application.add_handler(CommandHandler("add_balance", add_balance))
-    application.add_handler(CommandHandler('start', start))
+    application.add_handler(CommandHandler('start', start, filters=filters.ChatType.PRIVATE))
+    # Добавьте другие обработчики здесь...
+
     application.add_handler(CallbackQueryHandler(language_callback, pattern='^set_lang_'))
     application.add_handler(CallbackQueryHandler(ces_6_menu_callback, pattern='^ces_6_menu$'))
     register_quiz_handlers(application)
-
     application.add_handler(CallbackQueryHandler(verify_subscription_callback, pattern='^verify_subscription$'))
     application.add_handler(CallbackQueryHandler(menu_command, pattern='^main_menu$'))
     application.add_handler(CallbackQueryHandler(deck_department_callback, pattern='^deck_department$'))
-
     application.add_handler(CallbackQueryHandler(engine_department_callback, pattern='^engine_department$'))
-
     application.add_handler(CallbackQueryHandler(start_test_callback, pattern='^start_test_'))
     application.add_handler(CallbackQueryHandler(handle_answer_callback, pattern='^answer_'))
     application.add_handler(CallbackQueryHandler(personal_account_callback, pattern='^personal_account$'))
@@ -824,16 +847,13 @@ def main():
     application.add_handler(CallbackQueryHandler(handle_buy_callback, pattern='^buy_'))
     application.add_handler(MessageHandler(filters.SUCCESSFUL_PAYMENT, successful_payment_callback))
     application.add_handler(PreCheckoutQueryHandler(precheckout_callback))
-
     application.add_handler(CommandHandler("broadcast", broadcast_command))
     application.add_handler(MessageHandler(filters.PHOTO, handle_photo_message))
-
     application.add_handler(CommandHandler("add_balance", add_balance))
-
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text_message))
     register_handlers(application)
 
-
+    # Запуск бота
     application.run_polling()
 
 if __name__ == '__main__':
