@@ -5,9 +5,9 @@ import random
 import logging
 from db_operations import create_pool
 
-ALLOWED_CHAT_IDS = [-1002214875727, -4129260987, -1001587110027, -1001829502006]  # Replace with your chat IDs
+ALLOWED_CHAT_IDS = [-1002214875727, -4129260987, -1001587110027, -1001829502006]  # Замените на ваши chat_id
 
-# Configure logging
+# Настройка логирования
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -48,80 +48,80 @@ async def get_chat_leaderboard(pool, chat_id):
 async def start_quiz(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
     if chat_id not in ALLOWED_CHAT_IDS:
-        await update.message.reply_text("This bot is not allowed in this chat.")
+        await update.message.reply_text("Этот бот не разрешен в этом чате.")
         return
 
     pool = context.bot_data.get("db_pool")
     if not pool:
-        await update.message.reply_text("Database connection not available.")
+        await update.message.reply_text("Нет подключения к базе данных.")
         return
 
     question_info = await get_random_question(pool)
     if question_info:
         context.chat_data["question_id"] = question_info["id"]
-        logger.info(f"Set question_id in chat_data: {context.chat_data['question_id']}")
-        await update.message.reply_text(f"Question: {question_info['question']}")
+        logger.info(f"Установлен question_id в chat_data: {context.chat_data['question_id']}")
+        await update.message.reply_text(f"Вопрос: {question_info['question']}")
     else:
-        await update.message.reply_text("No questions available.")
+        await update.message.reply_text("Нет доступных вопросов.")
 
 async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
     if chat_id not in ALLOWED_CHAT_IDS:
-        logger.info(f"Chat ID {chat_id} is not allowed.")
-        return  # Do not respond if the chat is not allowed
+        logger.info(f"Chat ID {chat_id} не разрешен.")
+        return  # Не отвечать, если чат не разрешен
 
     pool = context.bot_data.get("db_pool")
     if not pool:
-        logger.info("No database connection available.")
-        return  # Do not respond if there is no database connection
+        logger.info("Нет подключения к базе данных.")
+        return  # Не отвечать, если нет подключения к базе данных
 
     question_id = context.chat_data.get("question_id")
-    logger.info(f"Retrieved question_id from chat_data: {question_id}")
+    logger.info(f"Получен question_id из chat_data: {question_id}")
     if not question_id:
-        logger.info("No question_id found in chat_data.")
-        return  # Do not respond if there is no question set
+        logger.info("Нет question_id в chat_data.")
+        return  # Не отвечать, если вопрос не задан
 
     user_answer = update.message.text.strip()
-    logger.info(f"User answer: {user_answer}")
+    logger.info(f"Ответ пользователя: {user_answer}")
     correct_answer = await get_correct_answer(pool, question_id)
-    logger.info(f"Correct answer: {correct_answer}")
+    logger.info(f"Правильный ответ: {correct_answer}")
     if user_answer.lower() == correct_answer.lower():
-        await update.message.reply_text(f"Correct! 🎉 Answer: {correct_answer}.")
-        # Update user stats
+        await update.message.reply_text(f"Правильно! 🎉 Ответ: {correct_answer}.")
+        # Обновить статистику пользователя
         user_id = update.effective_user.id
         await update_user_stats(pool, user_id, chat_id)
-        # Reset the question after a correct answer
+        # Сбросить вопрос после правильного ответа
         context.chat_data["question_id"] = None
-        logger.info(f"Reset question_id in chat_data")
+        logger.info(f"Сброшен question_id в chat_data")
 
 async def show_leaderboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
     if chat_id not in ALLOWED_CHAT_IDS:
-        await update.message.reply_text("This bot is not allowed in this chat.")
+        await update.message.reply_text("Этот бот не разрешен в этом чате.")
         return
 
     pool = context.bot_data.get("db_pool")
     if not pool:
-        await update.message.reply_text("Database connection not available.")
+        await update.message.reply_text("Нет подключения к базе данных.")
         return
 
     leaderboard = await get_chat_leaderboard(pool, chat_id)
     if not leaderboard:
-        await update.message.reply_text("No leaderboard data available.")
+        await update.message.reply_text("Нет данных рейтинга.")
         return
 
-    leaderboard_text = "Chat leaderboard:\n"
+    leaderboard_text = "Рейтинг чата:\n"
     for rank, entry in enumerate(leaderboard, start=1):
         user = await context.bot.get_chat_member(chat_id, entry["user_id"])
         user_name = user.user.first_name
-        leaderboard_text += f"{rank}. {user_name} - {entry['correct_answers']} correct answers\n"
+        leaderboard_text += f"{rank}. {user_name} - {entry['correct_answers']} правильных ответов\n"
 
     await update.message.reply_text(leaderboard_text)
 
 def register_quiz_handlers(application):
-    # Register quiz handlers
+    # Регистрация обработчиков квиза
     application.add_handler(CommandHandler("start_quiz", start_quiz))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, check_answer))
     application.add_handler(CommandHandler("leaderboard", show_leaderboard))
 
-# Initialize your application and register handlers as needed
+# Инициализация вашего приложения и регистрация обработчиков по мере необходимости
