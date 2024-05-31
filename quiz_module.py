@@ -54,7 +54,7 @@ async def start_quiz(update: Update, context: ContextTypes.DEFAULT_TYPE):
     question_info = await get_random_question(pool)
     if question_info:
         context.user_data["question_id"] = question_info["id"]
-        await update.message.reply_text(f"Question: {question_info['question']}")
+        await update.message.reply_text(f"Вопрос: {question_info['question']}")
     else:
         await update.message.reply_text("No questions available.")
 
@@ -74,7 +74,7 @@ async def check_answer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_answer = update.message.text.strip()
     correct_answer = await get_correct_answer(pool, question_id)
     if user_answer.lower() == correct_answer.lower():
-        await update.message.reply_text(f"Correct! 🎉 The answer is: {correct_answer}.")
+        await update.message.reply_text(f"Правильно! 🎉 Ответ: {correct_answer}.")
         # Обновляем статистику пользователя
         user_id = update.effective_user.id
         await update_user_stats(pool, user_id, chat_id)
@@ -97,11 +97,11 @@ async def show_leaderboard(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("No leaderboard data available.")
         return
 
-    leaderboard_text = "Chat Leaderboard:\n"
+    leaderboard_text = "Рейтинг чата:\n"
     for rank, entry in enumerate(leaderboard, start=1):
         user = await context.bot.get_chat_member(chat_id, entry["user_id"])
         user_name = user.user.first_name
-        leaderboard_text += f"{rank}. {user_name} - {entry['correct_answers']} correct answers\n"
+        leaderboard_text += f"{rank}. {user_name} - {entry['correct_answers']} правильных ответов\n"
 
     await update.message.reply_text(leaderboard_text)
 
